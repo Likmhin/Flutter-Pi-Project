@@ -79,7 +79,7 @@ class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { //main page (wake on lan button and light sensor)
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -109,7 +109,7 @@ class HomeTab extends StatelessWidget {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    wakeLan();
+                    wakeLan(); //wake on lan function
                     Fluttertoast.showToast(
                         msg: "Request Sent",
                         toastLength: Toast.LENGTH_SHORT,
@@ -137,7 +137,7 @@ class HomeTab extends StatelessWidget {
   }
 }
 
-class Sensor extends StatelessWidget {
+class Sensor extends StatelessWidget { //sensor page (temp and humidity)
   const Sensor({super.key});
 
   @override
@@ -206,7 +206,7 @@ class Sensor extends StatelessWidget {
   }
 }
 
-class UriData extends StatefulWidget {
+class UriData extends StatefulWidget { //json uri list building
   const UriData({super.key});
 
   @override
@@ -221,10 +221,10 @@ class _UriDataState extends State<UriData> {
   }
 
   // Uri uri = Uri.parse("https://jsonplaceholder.typicode.com/users");
-  Uri uri = Uri.parse("http://pi@192.168.1.9/");
+  Uri uri = Uri.parse("http://192.168.1.9/");
 
   Future<List<EnvData>> fetchData() async {
-    final response = await http.get(uri);
+    final response = await http.get(uri); //constant connection refused - is not working
     if (response.statusCode == 200) {
       //Success
       var parsedList = jsonDecode(response.body);
