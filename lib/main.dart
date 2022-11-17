@@ -221,7 +221,7 @@ class _UriDataState extends State<UriData> {
   }
 
   // Uri uri = Uri.parse("https://jsonplaceholder.typicode.com/users");
-  Uri uri = Uri.parse("http://192.168.1.12");
+  Uri uri = Uri.parse("http://pi@192.168.1.9/");
 
   Future<List<EnvData>> fetchData() async {
     final response = await http.get(uri);
@@ -236,9 +236,7 @@ class _UriDataState extends State<UriData> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: FutureBuilder<List<EnvData>>(
+    return FutureBuilder<List<EnvData>>(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -251,8 +249,8 @@ class _UriDataState extends State<UriData> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       tileColor: Colors.cyanAccent,
-                      title: Text(snapshot.data![index].temp.toString()),
-                      subtitle: Text(snapshot.data![index].light.toString()),
+                      title: Text(snapshot.data![index].id.toString()),
+                      subtitle: Text(snapshot.data![index].temp.toString()),
                     ),
                   ),
                 );
@@ -262,8 +260,8 @@ class _UriDataState extends State<UriData> {
             return Container();
           }
         },
-      ),
-    );
+        future: fetchData(),
+      );
   }
 }
 
